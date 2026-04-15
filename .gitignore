@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+.env
+
+# Pytest / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Node / Vite
+node_modules/
+dist/
+*.local
+
+# Vite build output
+web/dist/
+
+# Coverage reports
+web/coverage/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Misc
+*.log
