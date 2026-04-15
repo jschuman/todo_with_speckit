@@ -14,6 +14,18 @@ describe("AddTodoForm component — US2", () => {
     expect(screen.getByRole("button", { name: /add/i })).toBeInTheDocument();
   });
 
+  it("form element has form-card className", () => {
+    const { container } = render(<AddTodoForm onAdd={vi.fn()} />);
+    const form = container.querySelector("form");
+    expect(form?.className).toMatch(/form-card/);
+  });
+
+  it("submit button has btn className", () => {
+    render(<AddTodoForm onAdd={vi.fn()} />);
+    const btn = screen.getByRole("button", { name: /add/i });
+    expect(btn.className).toMatch(/btn/);
+  });
+
   it("calls onAdd with title and null description when submitted with title only", async () => {
     const onAdd = vi.fn().mockResolvedValue(undefined);
     render(<AddTodoForm onAdd={onAdd} />);

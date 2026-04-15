@@ -1,3 +1,4 @@
+import "./TodoList.css";
 import { TodoItem as TodoItemComponent } from "./TodoItem";
 import type { TodoItem } from "../types/todo";
 
@@ -9,15 +10,24 @@ interface Props {
 
 export function TodoList({ items, onToggle, onDelete }: Props) {
   if (items.length === 0) {
-    return <p>No to-dos found.</p>;
+    return <p className="empty-state">No to-dos found.</p>;
   }
   return (
-    <ul>
-      {items.map((item) => (
-        <li key={item.id}>
-          <TodoItemComponent item={item} onToggle={onToggle} onDelete={onDelete} />
-        </li>
-      ))}
-    </ul>
+    <div className="todo-table-wrapper">
+      <table className="todo-table">
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Task</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.map((item) => (
+            <TodoItemComponent key={item.id} item={item} onToggle={onToggle} onDelete={onDelete} />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

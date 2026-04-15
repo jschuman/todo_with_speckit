@@ -15,57 +15,71 @@ const activeItem: TodoItem = {
 const completedItem: TodoItem = { ...activeItem, completed: true };
 const noDescItem: TodoItem = { ...activeItem, description: null };
 
-describe("TodoItem component — US1", () => {
+describe("TodoItem component — US1/US3", () => {
   it("renders the title", () => {
     render(
-      <TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} />
+      <table><tbody><TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} /></tbody></table>
     );
     expect(screen.getByText("Buy milk")).toBeInTheDocument();
   });
 
   it("renders description when present", () => {
     render(
-      <TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} />
+      <table><tbody><TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} /></tbody></table>
     );
     expect(screen.getByText("Whole milk")).toBeInTheDocument();
   });
 
   it("does not render description element when null", () => {
     render(
-      <TodoItemComponent item={noDescItem} onToggle={vi.fn()} onDelete={vi.fn()} />
+      <table><tbody><TodoItemComponent item={noDescItem} onToggle={vi.fn()} onDelete={vi.fn()} /></tbody></table>
     );
     expect(screen.queryByTestId("todo-description")).not.toBeInTheDocument();
   });
 
-  it("shows active status for incomplete item", () => {
+  it("row does not have completed class for active item", () => {
     render(
-      <TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} />
+      <table><tbody><TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} /></tbody></table>
     );
-    const article = screen.getByRole("article");
-    expect(article).not.toHaveClass("completed");
+    const row = screen.getByTestId("todo-row");
+    expect(row.className).not.toMatch(/completed/);
   });
 
-  it("shows completed status for completed item", () => {
+  it("row has completed class for completed item", () => {
     render(
-      <TodoItemComponent item={completedItem} onToggle={vi.fn()} onDelete={vi.fn()} />
+      <table><tbody><TodoItemComponent item={completedItem} onToggle={vi.fn()} onDelete={vi.fn()} /></tbody></table>
     );
-    const article = screen.getByRole("article");
-    expect(article).toHaveClass("completed");
+    const row = screen.getByTestId("todo-row");
+    expect(row.className).toMatch(/completed/);
   });
 });
 
-describe("TodoItem toggle interaction — US3", () => {
+describe("TodoItem toggle interaction — US3/US4", () => {
   it("renders a toggle button", () => {
     render(
-      <TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} />
+      <table><tbody><TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} /></tbody></table>
     );
     expect(screen.getByRole("button", { name: /toggle/i })).toBeInTheDocument();
+  });
+
+  it("toggle button shows ✓ for active item", () => {
+    render(
+      <table><tbody><TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} /></tbody></table>
+    );
+    expect(screen.getByRole("button", { name: /toggle/i }).textContent).toBe("✓");
+  });
+
+  it("toggle button shows ↩ for completed item", () => {
+    render(
+      <table><tbody><TodoItemComponent item={completedItem} onToggle={vi.fn()} onDelete={vi.fn()} /></tbody></table>
+    );
+    expect(screen.getByRole("button", { name: /undo/i }).textContent).toBe("↩");
   });
 
   it("calls onToggle with item id when toggle is clicked", async () => {
     const onToggle = vi.fn();
     render(
-      <TodoItemComponent item={activeItem} onToggle={onToggle} onDelete={vi.fn()} />
+      <table><tbody><TodoItemComponent item={activeItem} onToggle={onToggle} onDelete={vi.fn()} /></tbody></table>
     );
     await userEvent.click(screen.getByRole("button", { name: /toggle/i }));
     expect(onToggle).toHaveBeenCalledWith("abc-123");
@@ -75,15 +89,22 @@ describe("TodoItem toggle interaction — US3", () => {
 describe("TodoItem delete interaction — US4", () => {
   it("renders a delete button", () => {
     render(
-      <TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} />
+      <table><tbody><TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} /></tbody></table>
     );
     expect(screen.getByRole("button", { name: /delete/i })).toBeInTheDocument();
+  });
+
+  it("delete button shows 🗑", () => {
+    render(
+      <table><tbody><TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={vi.fn()} /></tbody></table>
+    );
+    expect(screen.getByRole("button", { name: /delete/i }).textContent).toBe("🗑");
   });
 
   it("calls onDelete with item id when delete is clicked", async () => {
     const onDelete = vi.fn();
     render(
-      <TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={onDelete} />
+      <table><tbody><TodoItemComponent item={activeItem} onToggle={vi.fn()} onDelete={onDelete} /></tbody></table>
     );
     await userEvent.click(screen.getByRole("button", { name: /delete/i }));
     expect(onDelete).toHaveBeenCalledWith("abc-123");

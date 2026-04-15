@@ -1,3 +1,4 @@
+import "./AddTodoForm.css";
 import { useRef, useState } from "react";
 
 interface Props {
@@ -24,17 +25,21 @@ export function AddTodoForm({ onAdd }: Props) {
   }
 
   return (
-    <form onSubmit={(e) => void handleSubmit(e)}>
-      <label>
-        Title
-        <input aria-label="Title" ref={titleRef} type="text" />
-      </label>
-      <label>
-        Description
-        <input aria-label="Description" ref={descRef} type="text" />
-      </label>
-      {validationError && <p role="alert">{validationError}</p>}
-      <button type="submit">Add</button>
+    <form className="form-card" onSubmit={(e) => void handleSubmit(e)}>
+      <div className="form-group">
+        <label>
+          Title
+          <input aria-label="Title" ref={titleRef} type="text" />
+        </label>
+      </div>
+      <div className="form-group">
+        <label>
+          Description
+          <input aria-label="Description" ref={descRef} type="text" />
+        </label>
+      </div>
+      {validationError && <p role="alert" className="form-error">{validationError}</p>}
+      <button type="submit" className="btn btn-primary">Add</button>
     </form>
   );
 }

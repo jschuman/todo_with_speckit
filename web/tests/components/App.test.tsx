@@ -22,6 +22,19 @@ describe("App component", () => {
     expect(screen.getByRole("heading", { name: /to-do/i })).toBeInTheDocument();
   });
 
+  it("header contains ✅ and 📝 emoji", async () => {
+    render(<App />);
+    const heading = screen.getByRole("heading", { level: 1 });
+    expect(heading.textContent).toMatch(/✅/);
+    expect(heading.textContent).toMatch(/📝/);
+  });
+
+  it("heading is inside a banner/header element with app-header class", async () => {
+    render(<App />);
+    const banner = screen.getByRole("banner");
+    expect(banner.className).toMatch(/app-header/);
+  });
+
   it("shows items loaded from the service", async () => {
     vi.spyOn(todoService, "getTodos").mockResolvedValue([item]);
     render(<App />);

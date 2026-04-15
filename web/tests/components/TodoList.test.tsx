@@ -20,16 +20,22 @@ const items: TodoItem[] = [
   },
 ];
 
-describe("TodoList component — US1", () => {
-  it("renders all provided items", () => {
+describe("TodoList component — US1/US3", () => {
+  it("renders a table element", () => {
+    render(<TodoList items={items} onToggle={vi.fn()} onDelete={vi.fn()} />);
+    expect(screen.getByRole("table")).toBeInTheDocument();
+  });
+
+  it("renders correct number of data rows (header + items)", () => {
+    render(<TodoList items={items} onToggle={vi.fn()} onDelete={vi.fn()} />);
+    // getAllByRole("row") returns header row + data rows
+    expect(screen.getAllByRole("row")).toHaveLength(3);
+  });
+
+  it("renders all provided item titles", () => {
     render(<TodoList items={items} onToggle={vi.fn()} onDelete={vi.fn()} />);
     expect(screen.getByText("First task")).toBeInTheDocument();
     expect(screen.getByText("Second task")).toBeInTheDocument();
-  });
-
-  it("renders correct number of list items", () => {
-    render(<TodoList items={items} onToggle={vi.fn()} onDelete={vi.fn()} />);
-    expect(screen.getAllByRole("article")).toHaveLength(2);
   });
 
   it("shows empty-state message when items array is empty", () => {

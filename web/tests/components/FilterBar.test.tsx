@@ -12,10 +12,22 @@ describe("FilterBar component — US5", () => {
     expect(screen.getByRole("button", { name: /completed/i })).toBeInTheDocument();
   });
 
+  it("nav element has filter-bar className", () => {
+    render(<FilterBar activeFilter="all" onFilterChange={vi.fn()} />);
+    const nav = screen.getByRole("navigation");
+    expect(nav.className).toMatch(/filter-bar/);
+  });
+
+  it("buttons have filter-btn className", () => {
+    render(<FilterBar activeFilter="all" onFilterChange={vi.fn()} />);
+    const buttons = screen.getAllByRole("button");
+    buttons.forEach((btn) => expect(btn.className).toMatch(/filter-btn/));
+  });
+
   it("marks the active filter button as selected", () => {
     render(<FilterBar activeFilter="active" onFilterChange={vi.fn()} />);
-    expect(screen.getByRole("button", { name: /active/i })).toHaveClass("active");
-    expect(screen.getByRole("button", { name: /all/i })).not.toHaveClass("active");
+    expect(screen.getByRole("button", { name: /active/i }).className).toMatch(/active/);
+    expect(screen.getByRole("button", { name: /all/i }).className).not.toMatch(/\bactive\b/);
   });
 
   it("calls onFilterChange with 'active' when Active is clicked", async () => {

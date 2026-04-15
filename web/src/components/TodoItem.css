@@ -1,0 +1,65 @@
+.todo-table td {
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+}
+
+.col-status {
+  width: 2.5rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.col-content {
+  width: 100%;
+}
+
+.col-actions {
+  width: 6rem;
+  text-align: right;
+  white-space: nowrap;
+  display: flex;
+  gap: 0.4rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.todo-title {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.todo-desc {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  margin-top: 0.2rem;
+}
+
+.icon-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  color: var(--color-text);
+}
+
+.icon-btn:hover {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.icon-btn.danger:hover {
+  background: var(--color-danger);
+  border-color: var(--color-danger);
+  color: #fff;
+}

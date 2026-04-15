@@ -1,0 +1,57 @@
+.todo-table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.todo-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.todo-table thead th {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+}
+
+.todo-table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.1s;
+}
+
+.todo-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.todo-table tbody tr:nth-child(even) {
+  background: #f5f4f2;
+}
+
+.todo-table tbody tr:hover {
+  background: #f0eeff;
+}
+
+.todo-row.completed {
+  background: var(--color-done-bg) !important;
+}
+
+.todo-row.completed .todo-title {
+  text-decoration: line-through;
+  color: var(--color-muted);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--color-muted);
+  padding: 2rem;
+  font-size: 0.95rem;
+}

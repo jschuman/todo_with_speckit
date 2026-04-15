@@ -1,3 +1,4 @@
+import "./App.css";
 import { AddTodoForm } from "./components/AddTodoForm";
 import { FilterBar } from "./components/FilterBar";
 import { TodoList } from "./components/TodoList";
@@ -8,12 +9,14 @@ export function App() {
     useTodos();
 
   return (
-    <main>
-      <h1>To-Do</h1>
+    <main className="app-container">
+      <header className="app-header">
+        <h1>✅ To-Do 📝</h1>
+      </header>
       {error && <p role="alert">{error}</p>}
       <AddTodoForm onAdd={addTodo} />
       <FilterBar activeFilter={activeFilter} onFilterChange={setFilter} />
-      {loading ? <p>Loading…</p> : <TodoList items={todos} onToggle={toggleItem} onDelete={deleteItem} />}
+      {loading ? <p className="loading-text">Loading…</p> : <TodoList items={todos} onToggle={toggleItem} onDelete={deleteItem} />}
     </main>
   );
 }
